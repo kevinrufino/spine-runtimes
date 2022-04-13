@@ -17,20 +17,26 @@
 
 <body>
 	<div id="container" style="width:640px; height:380px"></div>
+	<!-- <h1>Breeds:</h1>
+	<div>
+		<button id="bulldog">bulldog</button>
+		<button id="corgi">corgi</button>
+		<button id="lab">lab</button>
+	</div> -->
 	<div id="container-raptor" style="width:640px; height:380px"></div>
 	<div>
-		<button id="walk">Walk</button>
-		<button id="jump">Jump</button>
-		<button id="roar">Roar</button>
+		<button id="throw_potion">throw_potion</button>
+		<button id="dual_swing2">dual_swing2</button>
+		<button id="pass_out">pass_out</button>
 	</div>
 </body>
 <script>
 	// Creates a new spine player. The debugRender option enables
 	// rendering of viewports and padding for debugging purposes.
 	new spine.SpinePlayer("container", {
-		skelUrl: "assets/spineboy-pro.skel",
-		atlasUrl: "assets/spineboy-pma.atlas",
-		animation: "run",
+		jsonUrl: "assets/bulldog.json",
+		atlasUrl: "assets/bulldog_color.atlas",
+		animation: "cast_buff",
 		premultipliedAlpha: true,
 		backgroundColor: "#cccccc",
 		viewport: {
@@ -39,13 +45,19 @@
 		showControls: true,
 	});
 
+	var breed = "lab"
+
 	// Creates a new spine player with a transparent background,
 	// so content from the website shines through. Hides the controls.
 	// Instead, the user can control the animation via buttons.
 	var jsControlledPlayer = new spine.SpinePlayer("container-raptor", {
-		jsonUrl: "assets/raptor-pro.json",
-		atlasUrl: "assets/raptor-pma.atlas",
-		animation: "walk",
+		// jsonUrl: "assets/raptor-pro.json",
+		// atlasUrl: "assets/raptor-pma.atlas",
+		// animation: "walk",
+		jsonUrl: `assets/${breed}.json`,
+		atlasUrl: `assets/${breed}_color.atlas`,
+		animation: "shoot_bow",
+		skin: "face01",
 		showControls: false,
 		premultipliedAlpha: true,
 		backgroundColor: "#00000000",
@@ -55,17 +67,32 @@
 		success: (player) => {
 			// Register button click event handlers once the
 			// skeleton has been loaded successfully
-			document.getElementById("walk").addEventListener("click", event => {
-				jsControlledPlayer.setAnimation("walk", false); // set the walk animation to play once
+			document.getElementById("throw_potion").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("throw_potion", false); // set the walk animation to play once
 			});
 
-			document.getElementById("jump").addEventListener("click", event => {
-				jsControlledPlayer.setAnimation("jump", false); // set the jump animation to play once
+			document.getElementById("dual_swing2").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("dual_swing2", false); // set the jump animation to play once
 			});
 
-			document.getElementById("roar").addEventListener("click", event => {
-				jsControlledPlayer.setAnimation("roar", true); // set the jump animation to loop
+			document.getElementById("pass_out").addEventListener("click", event => {
+				jsControlledPlayer.setAnimation("pass_out", true); // set the jump animation to loop
 			});
+
+			// document.getElementById("bulldog").addEventListener("click", event => {
+			// 	breed = "bulldog"
+			// });
+
+			// document.getElementById("corgi").addEventListener("click", event => {
+			// 	breed = "corgi"
+			// });
+
+			// document.getElementById("lab").addEventListener("click", event => {
+			// 	breed = "lab"
+			// });
+
+			let jsonurl = "assets/" + breed + ".json"
+			let atlasurl = "assets/" + breed + "_color.atlas"
 		}
 	});
 </script>

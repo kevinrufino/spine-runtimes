@@ -24,15 +24,20 @@
 
 		// Load the assets.
 		assetManager = new spine.AssetManager("https://esotericsoftware.com/files/examples/4.0/spineboy/export/");
+		// assetManager = new spine.canvas.AssetManager();
 		assetManager.loadText("spineboy-ess.json");
+		// assetManager.loadText("bulldog.json");
 		assetManager.loadTextureAtlas("spineboy.atlas");
+		// assetManager.loadTextureAtlas("bulldog_color.atlas");
 		await assetManager.loadAll();
 
 		// Create the texture atlas and skeleton data.
 		let atlas = assetManager.require("spineboy.atlas");
+		// let atlas = assetManager.require("bulldog_color.atlas");
 		let atlasLoader = new spine.AtlasAttachmentLoader(atlas);
 		let skeletonJson = new spine.SkeletonJson(atlasLoader);
 		let skeletonData = skeletonJson.readSkeletonData(assetManager.require("spineboy-ess.json"));
+		// let skeletonData = skeletonJson.readSkeletonData(assetManager.require("bulldog.json"));
 
 		// Instantiate a new skeleton based on the atlas and skeleton data.
 		skeleton = new spine.Skeleton(skeletonData);
@@ -46,7 +51,7 @@
 		animationState = new spine.AnimationState(animationStateData);
 
 		// Set the run animation, looping.
-		animationState.setAnimation(0, "run", true);
+		animationState.setAnimation(0, "walk", true);
 
 		// Start rendering.
 		requestAnimationFrame(render);
@@ -68,8 +73,8 @@
 
 		// Center the skeleton and resize it so it fits inside the canvas.
 		skeleton.x = canvas.width / 2;
-		skeleton.y = canvas.height - canvas.height * 0.1;
-		let scale = canvas.height / bounds.height * 0.8;
+		skeleton.y = canvas.height - canvas.height * 0.2;
+		let scale = canvas.height / bounds.height * 0.4;
 		skeleton.scaleX = scale;
 		skeleton.scaleY = -scale;
 
